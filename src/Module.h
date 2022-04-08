@@ -359,13 +359,13 @@ class Module {
     void end();
 
     // helper functions to set up SPI overrides on Arduino
-    #if defined(RADIOLIB_BUILD_ARDUINO)
+   // #if defined(RADIOLIB_BUILD_ARDUINO)
     void SPIbegin();
     void SPIbeginTransaction();
     uint8_t SPItransfer(uint8_t b);
     void SPIendTransaction();
     void SPIend();
-    #endif
+   // #endif
 
     /*!
       \brief Function to reflect bits within a byte.
@@ -391,7 +391,7 @@ class Module {
     RADIOLIB_GENERATE_CALLBACK(RADIOLIB_CB_ARGS_MILLIS);
     RADIOLIB_GENERATE_CALLBACK(RADIOLIB_CB_ARGS_MICROS);
 
-    #if defined(RADIOLIB_BUILD_ARDUINO)
+    #if !defined(RADIOLIB_BUILD_ARDUINO)
     RADIOLIB_GENERATE_CALLBACK_SPI(RADIOLIB_CB_ARGS_SPI_BEGIN);
     RADIOLIB_GENERATE_CALLBACK_SPI(RADIOLIB_CB_ARGS_SPI_BEGIN_TRANSACTION);
     RADIOLIB_GENERATE_CALLBACK_SPI(RADIOLIB_CB_ARGS_SPI_TRANSFER);
@@ -415,12 +415,10 @@ class Module {
     RADIOLIB_PIN_TYPE _rst = RADIOLIB_NC;
     RADIOLIB_PIN_TYPE _gpio = RADIOLIB_NC;
 
-    // SPI interface (Arduino only)
-    #if defined(RADIOLIB_BUILD_ARDUINO)
     SPIClass* _spi = NULL;
     SPISettings _spiSettings = RADIOLIB_DEFAULT_SPI_SETTINGS;
+    
     bool _initInterface = false;
-    #endif
 
     // RF switch presence and pins
     bool _useRfSwitch = false;

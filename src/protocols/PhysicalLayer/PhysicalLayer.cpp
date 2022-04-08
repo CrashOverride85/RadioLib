@@ -1,4 +1,5 @@
 #include "PhysicalLayer.h"
+#include <cstring>
 
 PhysicalLayer::PhysicalLayer(float freqStep, size_t maxPacketLength) {
   _freqStep = freqStep;
@@ -7,6 +8,7 @@ PhysicalLayer::PhysicalLayer(float freqStep, size_t maxPacketLength) {
   _bufferWritePos = 0;
 }
 
+/*
 int16_t PhysicalLayer::transmit(__FlashStringHelper* fstr, uint8_t addr) {
   // read flash string length
   size_t len = 0;
@@ -39,8 +41,8 @@ int16_t PhysicalLayer::transmit(__FlashStringHelper* fstr, uint8_t addr) {
   #endif
   return(state);
 }
-
-int16_t PhysicalLayer::transmit(String& str, uint8_t addr) {
+*/
+int16_t PhysicalLayer::transmit(std::string& str, uint8_t addr) {
   return(transmit(str.c_str(), addr));
 }
 
@@ -48,7 +50,7 @@ int16_t PhysicalLayer::transmit(const char* str, uint8_t addr) {
   return(transmit((uint8_t*)str, strlen(str), addr));
 }
 
-int16_t PhysicalLayer::startTransmit(String& str, uint8_t addr) {
+int16_t PhysicalLayer::startTransmit(std::string& str, uint8_t addr) {
   return(startTransmit(str.c_str(), addr));
 }
 
@@ -56,7 +58,7 @@ int16_t PhysicalLayer::startTransmit(const char* str, uint8_t addr) {
   return(startTransmit((uint8_t*)str, strlen(str), addr));
 }
 
-int16_t PhysicalLayer::readData(String& str, size_t len) {
+int16_t PhysicalLayer::readData(std::string& str, size_t len) {
   int16_t state = RADIOLIB_ERR_NONE;
 
   // read the number of actually received bytes
@@ -86,7 +88,7 @@ int16_t PhysicalLayer::readData(String& str, size_t len) {
     data[length] = 0;
 
     // initialize Arduino String class
-    str = String((char*)data);
+    str = std::string((char*)data);
   }
 
   // deallocate temporary buffer
@@ -97,7 +99,7 @@ int16_t PhysicalLayer::readData(String& str, size_t len) {
   return(state);
 }
 
-int16_t PhysicalLayer::receive(String& str, size_t len) {
+int16_t PhysicalLayer::receive(std::string& str, size_t len) {
   int16_t state = RADIOLIB_ERR_NONE;
 
   // user can override the length of data to read
@@ -131,7 +133,7 @@ int16_t PhysicalLayer::receive(String& str, size_t len) {
     data[length] = 0;
 
     // initialize Arduino String class
-    str = String((char*)data);
+    str = std::string((char*)data);
   }
 
   // deallocate temporary buffer

@@ -83,6 +83,23 @@ Module::Module(RADIOLIB_PIN_TYPE cs, RADIOLIB_PIN_TYPE irq, RADIOLIB_PIN_TYPE rs
   _gpio(gpio)
 {
   // not an Arduino build, it's up to the user to set all callbacks
+
+  _spi = new SPIClass();
+  _initInterface = true;
+  setCb_pinMode(::pinMode);
+  setCb_digitalRead(::digitalRead); 
+  setCb_digitalWrite(::digitalWrite); 
+  setCb_attachInterrupt(::attachInterrupt);
+  setCb_detachInterrupt(::detachInterrupt);
+  setCb_delay(::delay); 
+  setCb_delayMicroseconds(::delayMicroseconds); 
+  setCb_millis(::millis);
+  setCb_micros(::micros); 
+  setCb_SPIbegin(&Module::SPIbegin); 
+  setCb_SPIbeginTransaction(&Module::beginTransaction);
+  setCb_SPItransfer(&Module::transfer);  
+  setCb_SPIendTransaction(&Module::endTransaction);
+  setCb_SPIend(&Module::end);  
 }
 
 #endif
@@ -408,7 +425,7 @@ void Module::end() {
   (this->*cb_SPIend)();
 }
 
-#if defined(RADIOLIB_BUILD_ARDUINO)
+//#if defined(RADIOLIB_BUILD_ARDUINO)
 void Module::SPIbegin() {
   _spi->begin();
 }
@@ -428,7 +445,7 @@ void Module::SPIendTransaction() {
 void Module::SPIend() {
   _spi->end();
 }
-#endif
+//#endif
 
 uint8_t Module::flipBits(uint8_t b) {
   b = (b & 0xF0) >> 4 | (b & 0x0F) << 4;

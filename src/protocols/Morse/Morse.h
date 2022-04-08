@@ -1,7 +1,10 @@
-#if !defined(_RADIOLIB_RADIOLIB_MORSE_H) && !defined(RADIOLIB_EXCLUDE_MORSE)
+#if !defined(_RADIOLIB_RADIOLIB_MORSE_H)
 #define _RADIOLIB_RADIOLIB_MORSE_H
 
 #include "../../TypeDef.h"
+
+#if !defined(RADIOLIB_EXCLUDE_MORSE)
+
 #include "../PhysicalLayer/PhysicalLayer.h"
 #include "../AFSK/AFSK.h"
 
@@ -168,5 +171,7 @@ class MorseClient {
     int16_t transmitDirect(uint32_t freq = 0, uint32_t freqHz = 0);
     int16_t standby();
 };
+
+#endif
 
 #endif

@@ -1,6 +1,12 @@
 #include "SX127x.h"
 #if !defined(RADIOLIB_EXCLUDE_SX127X)
 
+
+#define max(a,b) \
+   ({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+     _a > _b ? _a : _b; })
+
 SX127x::SX127x(Module* mod) : PhysicalLayer(RADIOLIB_SX127X_FREQUENCY_STEP_SIZE, RADIOLIB_SX127X_MAX_PACKET_LENGTH) {
   _mod = mod;
 }
