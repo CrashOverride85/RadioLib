@@ -4,7 +4,7 @@ Fork of the RadioLib library that has been bodged to build for the Raspberry Pic
 
 It's intended to be included as a submodule in an "extenal" directory of a Pico project, then by adding something like `add_subdirectory(external/RadioLib/src)` to the root CMakeLists.txt, then adding `RadioLib` to the `target_link_libraries` list.
 
-
+See https://github.com/CrashOverride85/RadioLibPicoExample for a complete example.
 
 
 
