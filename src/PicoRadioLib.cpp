@@ -1,6 +1,6 @@
 #include "PicoRadioLib.h"
-
 #include "pico/stdlib.h"
+
 
 uint8_t digitalPinToInterrupt(uint8_t pin)
 {
@@ -25,12 +25,29 @@ void digitalWrite(uint8_t pin, uint8_t value)
 
 void attachInterrupt(uint8_t pin, void (*UserFunc)(void), int mode)
 {
+  int events = 0;
 
+  switch (mode)
+  {
+    case CHANGE:
+      events = GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL;
+      break;
+    
+    case FALLING:
+      events = GPIO_IRQ_EDGE_FALL;
+      break;
+    
+    case RISING:
+      events = GPIO_IRQ_EDGE_RISE;
+      break;
+  }
+
+  ATTACH_INTERRUPT(pin, UserFunc, events);
 }
 
 void detachInterrupt(uint8_t pin)
 {
-
+  DETACH_INTERRUPT(pin);
 }
 
 void delay(unsigned long ms)

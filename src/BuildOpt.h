@@ -832,14 +832,8 @@
 
   // platform properties may be defined here, or somewhere else in the build system
 
-
-
-
     #include "PicoRadioLib.h"
-    
 
-
-   // #define RADIOLIB_PLATFORM                           "RasPicoSdk"
     #define RADIOLIB_PIN_TYPE                           uint8_t
     #define RADIOLIB_PIN_MODE                           uint8_t
     #define RADIOLIB_PIN_STATUS                         uint8_t
@@ -898,34 +892,6 @@
     #define RADIOLIB_EXCLUDE_RTTY
     #define RADIOLIB_EXCLUDE_SSTV
     #define RADIOLIB_EXCLUDE_APRS
-
-
-    // ... and for the grand finale, we have millis() and micros() DEFINED AS MACROS!
-    #if defined(millis)
-    #undef millis
-    inline unsigned long millis() { return((unsigned long)(STCV / 1000)); };
-    #endif
-
-    #if defined(micros)
-    #undef micros
-    inline unsigned long micros() { return((unsigned long)(STCV)); };
-    #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif
 
 /*

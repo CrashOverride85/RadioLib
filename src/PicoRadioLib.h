@@ -25,10 +25,6 @@
 #define FALLING 2
 #define RISING 3
 
-// #define OUTPUT GPIO_OUT
-
-// https://github.com/arduino/ArduinoCore-avr/blob/master/libraries/SPI/src/SPI.h
-
 uint8_t digitalPinToInterrupt(uint8_t pin);
 int digitalRead(uint8_t pin);
 void digitalWrite(uint8_t pin, uint8_t value);
@@ -39,6 +35,8 @@ void delay(unsigned long ms);
 void delayMicroseconds(unsigned int us);
 unsigned long millis();
 unsigned long micros();
+
+// Mostly copied from https://github.com/arduino/ArduinoCore-avr/blob/master/libraries/SPI/src/SPI.h
 
 class SPISettings 
 {
@@ -62,7 +60,7 @@ public:
     gpio_set_function(PIN_MISO, GPIO_FUNC_SPI);
     gpio_set_function(PIN_SCK , GPIO_FUNC_SPI);
     gpio_set_function(PIN_MOSI, GPIO_FUNC_SPI);
-  //gpio_set_function(PIN_CS  , GPIO_FUNC_SPI);
+  //gpio_set_function(PIN_CS  , GPIO_FUNC_SPI); don't let the Pico play with the CS line, RadioLib manages that pin itself
     
     spi_init(spi0, SPI_BAUD_RATE);
     spi_set_format(spi0, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
@@ -70,7 +68,7 @@ public:
 
   inline static void beginTransaction(SPISettings settings) 
   {
-   //
+
   }
 
   // Write to the SPI bus (MOSI pin) and also receive (MISO pin)
@@ -97,6 +95,3 @@ public:
     spi_deinit(spi0);
   }
 };
-
-
-

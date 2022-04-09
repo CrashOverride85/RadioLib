@@ -1,3 +1,13 @@
+# RadioLib for the Raspberry Pico using the C SDK
+
+Fork of the RadioLib library that has been bodged to build for the Raspberry Pico without Arduino framework. Currently only works with the SX127X module, and very limited testing; transmitting and receiving to/from RadioLib running on an AVR based Arduino does work using the basic examples though.
+
+It's intended to be included as a submodule in an "extenal" directory of a Pico project, then by adding something like `add_subdirectory(external/RadioLib/src)` to the root CMakeLists.txt, then adding `RadioLib` to the `target_link_libraries` list.
+
+
+
+
+
 # RadioLib ![Build Status](https://github.com/jgromes/RadioLib/workflows/CI/badge.svg)
 
 ### _One radio library to rule them all!_
